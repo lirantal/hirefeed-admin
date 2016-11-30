@@ -1,19 +1,45 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import RaisedButton from 'material-ui/RaisedButton';
+
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+
+import Sidebar from './Layout/Sidebar';
+import Footer from './Layout/Footer';
+
 
 class App extends Component {
+
   render() {
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
+            <div className="container">
+                <div className="row">
+
+                    <div className="col-md-3">
+                        <Sidebar />
+                    </div>
+
+                    <div className="col-md-9">
+                        {this.props.children}
+                    </div>
+                </div>
+
+                <div className="row">
+
+                    <div className="col-md-12">
+                        <Footer />
+                    </div>
+                </div>
+
+            </div>
+        </MuiThemeProvider>
     );
   }
 }
