@@ -12,6 +12,7 @@ import AppBar from 'material-ui/AppBar';
 import Sidebar from './Layout/Sidebar';
 import Footer from './Layout/Footer';
 
+import './App.css';
 
 class App extends Component {
 
