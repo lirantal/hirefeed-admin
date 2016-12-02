@@ -39,45 +39,62 @@ export default class Visitors extends Component {
         ];
 
         this.state = {
-            data: data
+            data: data,
+            tableData: data
         };
 
+        this.handleVisitorSearch = this.handleVisitorSearch.bind(this);
+    }
+
+    handleVisitorSearch(e) {
+        let visitors = this.state.data.filter(function(value) {
+            return value.name.indexOf(e.target.value) !== -1;
+        });
+
+        this.setState({tableData: visitors});
     }
 
     render() {
         return (
-          <div>
-              <h1>
-                  Visitors:
-              </h1>
+            <div>
+                <h1>
+                    List of visitors...
+                </h1>
 
-              <Table>
-                  <TableHeader>
-                      <TableRow>
-                          <TableHeaderColumn>ID</TableHeaderColumn>
-                          <TableHeaderColumn>Name</TableHeaderColumn>
-                          <TableHeaderColumn>Status</TableHeaderColumn>
-                      </TableRow>
-                  </TableHeader>
+                <div>
+                    <TextField
+                        hintText="visitor name"
+                        onChange={this.handleVisitorSearch}
+                    />
+                </div>
 
-                  <TableBody>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHeaderColumn>ID</TableHeaderColumn>
+                            <TableHeaderColumn>Name</TableHeaderColumn>
+                            <TableHeaderColumn>Status</TableHeaderColumn>
+                        </TableRow>
+                    </TableHeader>
 
-                      {this.state.data.map(function(obj, index) {
-                          return (
-                              <TableRow key={index} >
-                                  <TableRowColumn>{index}</TableRowColumn>
-                                  <TableRowColumn>{obj.name}</TableRowColumn>
-                                  <TableRowColumn>{obj.status}</TableRowColumn>
-                              </TableRow>
-                          );
-                      })}
+                    <TableBody>
+
+                        {this.state.tableData.map(function(obj, index) {
+                            return (
+                                <TableRow key={index} >
+                                    <TableRowColumn>{index}</TableRowColumn>
+                                    <TableRowColumn>{obj.name}</TableRowColumn>
+                                    <TableRowColumn>{obj.status}</TableRowColumn>
+                                </TableRow>
+                            );
+                        })}
 
 
-                  </TableBody>
+                    </TableBody>
 
-              </Table>
+                </Table>
 
-          </div>
+            </div>
         );
     }
 }
