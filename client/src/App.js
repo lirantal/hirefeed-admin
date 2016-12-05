@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 
-import RaisedButton from 'material-ui/RaisedButton';
-
-
+/**
+ * Import material-ui theme
+ */
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
 
+/**
+ * Import App-specific CSS
+ */
+import './App.css';
+
+/**
+ * Import app page routes
+ */
 import Sidebar from './Layout/Sidebar';
 import Footer from './Layout/Footer';
-
-import './App.css';
 
 class App extends Component {
 
