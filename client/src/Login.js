@@ -11,6 +11,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import Axios from 'axios'
+
 export default class Login extends Component {
 
   constructor() {
@@ -21,9 +23,26 @@ export default class Login extends Component {
     };
   }
 
+  validateUserLogin(resp) {
+    console.log('res:');
+    console.log(resp.data);
+    browserHistory.push('/');
+  }
+
   doLogin(e) {
-      e.preventDefault();
-      browserHistory.push('/');
+
+    // Prevent the browser from submitting the form so we can make an ajax request
+    e.preventDefault();
+
+    // Perform the ajax login request
+    Axios.post('/api/auth/signin', {
+      "usernameOrEmail": this.state.username,
+      "password": this.state.password
+    }).then(this.validateUserLogin)
+      .catch(function(error) {
+        console.log(error);
+    });
+
   }
 
   onUsernameChange(e) {
