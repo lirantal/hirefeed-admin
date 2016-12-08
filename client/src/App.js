@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { browserHistory } from 'react-router';
+import Axios from 'axios';
 /**
  * Import material-ui theme
  */
@@ -19,6 +20,40 @@ import Sidebar from './Layout/Sidebar';
 import Footer from './Layout/Footer';
 
 class App extends Component {
+
+  /**
+   * Check if user is authenticated
+   */
+  checkUserAuth() {
+    return localStorage.getItem('isAuth');
+  }
+
+  /**
+   * Get user details
+   */
+  getUserDetails() {
+    Axios.get('/api/users/me').
+      then(function(res) {
+        if (!res.data) {
+          browserHistory.push('/login');
+        } else {
+          localStorage.setItem('user', JSON.stringify(res.data));
+        }
+    }).catch(function(res) {
+      browserHistory.push('/login');
+    });
+  }
+
+  constructor() {
+    super();
+
+    if (!this.checkUserAuth()) {
+      browserHistory.push('/login');
+    }
+
+    this.getUserDetails();
+
+  }
 
   render() {
 

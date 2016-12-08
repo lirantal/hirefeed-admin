@@ -11,7 +11,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import Axios from 'axios'
+import Axios from 'axios';
 
 export default class Login extends Component {
 
@@ -23,13 +23,28 @@ export default class Login extends Component {
     };
   }
 
-  validateUserLogin(resp) {
-    console.log('res:');
-    console.log(resp.data);
+  /**
+   * User has been successfully authenticated, handle the login
+   * @param {object} API server response object
+   */
+  handleUserLogin(resp) {
+    localStorage.setItem('isAuth', true);
     browserHistory.push('/');
   }
 
-  doLogin(e) {
+  /**
+   * User failed authenticating, handle the error
+   * @param resp
+   */
+  handleUserLoginError(resp) {
+    this.setState({loginError: resp.message});
+  }
+
+  /**
+   * Login form submit action
+   * @param {object} entity
+   */
+  handleFormLogin(e) {
 
     // Prevent the browser from submitting the form so we can make an ajax request
     e.preventDefault();
@@ -38,10 +53,8 @@ export default class Login extends Component {
     Axios.post('/api/auth/signin', {
       "usernameOrEmail": this.state.username,
       "password": this.state.password
-    }).then(this.validateUserLogin)
-      .catch(function(error) {
-        console.log(error);
-    });
+    }).then(this.handleUserLogin.bind(this))
+      .catch(this.handleUserLoginError.bind(this));
 
   }
 
@@ -56,7 +69,7 @@ export default class Login extends Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
-        <form action="/" method="POST" onSubmit={this.doLogin.bind(this)}>
+        <form action="/" method="POST" onSubmit={this.handleFormLogin.bind(this)}>
 
           <TextField
             hintText="Username"
@@ -71,6 +84,15 @@ export default class Login extends Component {
           />
 
           <RaisedButton type="submit" label="Login" primary={true} />
+
+          <br/>
+          {this.state.loginError ?
+            (
+              <div>
+                <span>{this.state.loginError}</span>
+              </div>
+            ) : ''
+          }
 
           <br/>
           <Link to="/"> Go to main page </Link>
