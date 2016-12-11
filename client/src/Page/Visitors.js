@@ -4,46 +4,16 @@ import TextField from 'material-ui/TextField';
 
 export default class Visitors extends Component {
 
-    constructor() {
-        super();
-
-        let data = [
-            {
-                name: 'John Smith',
-                status: 'Employed',
-            },
-            {
-                name: 'Randal White',
-                status: 'Unemployed',
-            },
-            {
-                name: 'Stephanie Sanders',
-                status: 'Employed',
-            },
-            {
-                name: 'Steve Brown',
-                status: 'Employed',
-            },
-            {
-                name: 'Joyce Whitten',
-                status: 'Employed',
-            },
-            {
-                name: 'Samuel Roberts',
-                status: 'Employed',
-            },
-            {
-                name: 'Adam Moore',
-                status: 'Employed',
-            },
-        ];
+    constructor(props) {
+        super(props);
 
         this.state = {
-            data: data,
-            tableData: data
+            data: this.props.visitors,
+            tableData: this.props.visitors
         };
 
         this.handleVisitorSearch = this.handleVisitorSearch.bind(this);
+
     }
 
     handleVisitorSearch(e) {
@@ -55,16 +25,17 @@ export default class Visitors extends Component {
     }
 
     render() {
-        return (
+
+          return (
             <div>
                 <h1>
-                    List of visitors...
+                    Visitors:
                 </h1>
 
                 <div>
                     <TextField
-                        hintText="visitor name"
-                        onChange={this.handleVisitorSearch}
+                      hintText="visitor name"
+                      onChange={this.handleVisitorSearch}
                     />
                 </div>
 
@@ -73,21 +44,23 @@ export default class Visitors extends Component {
                         <TableRow>
                             <TableHeaderColumn>ID</TableHeaderColumn>
                             <TableHeaderColumn>Name</TableHeaderColumn>
-                            <TableHeaderColumn>Status</TableHeaderColumn>
+                            <TableHeaderColumn>Email</TableHeaderColumn>
+                            <TableHeaderColumn>Mobile</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
 
                     <TableBody>
 
-                        {this.state.tableData.map(function(obj, index) {
-                            return (
-                                <TableRow key={index} >
-                                    <TableRowColumn>{index}</TableRowColumn>
-                                    <TableRowColumn>{obj.name}</TableRowColumn>
-                                    <TableRowColumn>{obj.status}</TableRowColumn>
-                                </TableRow>
-                            );
-                        })}
+                      {this.state.tableData.map(function (obj, index) {
+                        return (
+                          <TableRow key={index}>
+                              <TableRowColumn>{index}</TableRowColumn>
+                              <TableRowColumn>{obj.name}</TableRowColumn>
+                              <TableRowColumn>{obj.email}</TableRowColumn>
+                              <TableRowColumn>{obj.mobile}</TableRowColumn>
+                          </TableRow>
+                        );
+                      })}
 
 
                     </TableBody>
@@ -95,6 +68,6 @@ export default class Visitors extends Component {
                 </Table>
 
             </div>
-        );
+          );
     }
 }

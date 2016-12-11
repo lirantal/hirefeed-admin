@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import reducers from './reducers/index';
 import Axios from 'axios';
 /**
  * Import material-ui theme
@@ -18,6 +22,9 @@ import './App.css';
  */
 import Sidebar from './Layout/Sidebar';
 import Footer from './Layout/Footer';
+
+const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
 
 class App extends Component {
 
@@ -58,28 +65,30 @@ class App extends Component {
   render() {
 
     return (
+      <Provider store={store}>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
-            <div className="container">
-                <div className="row">
+              <div className="container">
+                  <div className="row">
 
-                    <div className="col-md-3">
-                        <Sidebar />
-                    </div>
+                      <div className="col-md-3">
+                          <Sidebar />
+                      </div>
 
-                    <div className="col-md-9">
-                        {this.props.children}
-                    </div>
-                </div>
+                      <div className="col-md-9">
+                          {this.props.children}
+                      </div>
+                  </div>
 
-                <div className="row">
+                  <div className="row">
 
-                    <div className="col-md-12">
-                        <Footer />
-                    </div>
-                </div>
+                      <div className="col-md-12">
+                          <Footer />
+                      </div>
+                  </div>
 
-            </div>
-        </MuiThemeProvider>
+              </div>
+          </MuiThemeProvider>
+      </Provider>
     );
   }
 }

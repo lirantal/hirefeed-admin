@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import App from './App';
-import Visitors from './Page/Visitors';
+import VisitorsContainer from './Page/VisitorsContainer';
 import Login from './Login';
 import './index.css';
 
@@ -16,8 +16,8 @@ const Profile = () => {
 ReactDOM.render(
   <Router history={browserHistory}>
       <Route path="/" component={App}>
-          <IndexRoute component={Visitors}/>
-          <Route path="/visitors" component={Visitors}/>
+          <IndexRoute component={VisitorsContainer}/>
+          <Route path="/visitors" component={VisitorsContainer}/>
           <Route path="/profile" component={Profile}/>
       </Route>
       <Route path="/login" component={Login}/>
