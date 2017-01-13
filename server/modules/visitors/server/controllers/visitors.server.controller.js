@@ -13,10 +13,19 @@ var path = require('path'),
  */
 exports.getVisitors = function (req, res) {
 
-  let companyId = '1';
+  let id = req.query.companyId;
+  let companyId = null;
 
-  Visitor.
-    find({
+  try {
+    companyId = new mongoose.Types.ObjectId(id);
+    console.log(companyId);
+  } catch(e) {
+    return res.status(500).send({
+      message: errorHandler.getErrorMessage(e)
+    });
+  }
+
+  Visitor.find({
       companyId: companyId
     }).
     limit(100).
@@ -41,4 +50,22 @@ exports.getVisitors = function (req, res) {
  * Create new Visitor entry
  */
 exports.newVisitor = function (req, res) {
+
+  let visitor = new Visitor({
+    companyId: '' + req.body.companyId,
+    name: '' + req.body.name,
+    email: '' + req.body.email,
+    mobile: '' + req.body.mobile
+  });
+
+  visitor.save(function(err) {
+    if (err) {
+      return res.status(500).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      return res.status(201).send(visitor);
+    }
+  })
+
 };

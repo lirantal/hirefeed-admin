@@ -15,8 +15,8 @@ let mongoose = require('mongoose'),
  */
 let VisitorSchema = new Schema({
   companyId: {
-    type: String,
-    trim: true,
+    type: Schema.Types.ObjectId,
+    ref: 'Company',
     index: true,
     required: [true, 'companyId property is missing']
   },
