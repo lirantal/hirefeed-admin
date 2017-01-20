@@ -4,7 +4,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers/index';
+import configureStore from './store/configureStore';
 import Axios from 'axios';
+
 /**
  * Import material-ui theme
  */
@@ -23,8 +25,7 @@ import './App.css';
 import Sidebar from './Layout/Sidebar';
 import Footer from './Layout/Footer';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers);
+const store = configureStore();
 
 class App extends Component {
 
