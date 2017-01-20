@@ -31,7 +31,7 @@ class VisitorsContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return {
     visitors: state.visitors
   };
