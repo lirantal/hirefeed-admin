@@ -1,3 +1,1 @@
-'use strict';
-
-export const GET_VISITORS = 'GET_VISITORS';
+export const VISITORS_GET = 'VISITORS_GET';

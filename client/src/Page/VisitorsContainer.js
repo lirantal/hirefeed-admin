@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import { getVisitors } from '../actions/visitors.action';
+import { getVisitors } from '../actions/visitors';
 import Visitors from './Visitors';
 
 class VisitorsContainer extends Component {
 
   constructor(props) {
     super(props);
-
     this.props.getVisitors();
   }
 
   render() {
 
-    if (!this.props.visitors || this.props.visitors.visitors === '') {
+    if (this.props.visitors.length === 0) {
       return (
         <div>
           <h1> Loading ... </h1>
@@ -24,7 +23,7 @@ class VisitorsContainer extends Component {
     } else {
       return (
         <div>
-          <Visitors visitors={this.props.visitors.visitors} />
+          <Visitors visitors={this.props.visitors} />
         </div>
       );
     }

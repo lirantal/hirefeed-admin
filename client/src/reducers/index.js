@@ -1,10 +1,8 @@
-'use strict';
-
 import { combineReducers } from 'redux';
-import VisitorsReducer from './visitors.reducer';
+import visitorsReducer from './visitors';
 
-const reducer = combineReducers({
-  visitors: VisitorsReducer,
+const rootReducer = combineReducers({
+  visitors: visitorsReducer
 });
 
-export default reducer;
+export default rootReducer;

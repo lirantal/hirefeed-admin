@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import ReduxThunk from 'redux-thunk';
-import reducers from './reducers/index';
 import configureStore from './store/configureStore';
 import Axios from 'axios';
 
@@ -40,8 +37,7 @@ class App extends Component {
    * Get user details
    */
   getUserDetails() {
-    Axios.get('/api/users/me').
-      then(function(res) {
+    Axios.get('/api/users/me').then(function(res) {
         if (!res.data) {
           browserHistory.push('/login');
         } else {
