@@ -40,7 +40,7 @@
     "cookie-parser": "~1.4.1",
     "crypto": "0.0.3",
     "express": "~4.14.0",
-    "express-hbs": "^1.0.2",
+    "express-hbs": "^2.3.0",
     "express-session": "~1.14.1",
     "file-stream-rotator": "~0.0.6",
     "generate-password": "~1.2.0",
